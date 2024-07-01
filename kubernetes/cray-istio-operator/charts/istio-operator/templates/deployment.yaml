@@ -5,6 +5,7 @@ metadata:
   name: istio-operator{{- if not (eq .Values.revision "") }}-{{ .Values.revision }}{{- end }}
 spec:
   replicas: 1
+  revisionHistoryLimit: {{ .Values.deploymentHistory }}
   selector:
     matchLabels:
       name: istio-operator
@@ -12,6 +13,15 @@ spec:
     metadata:
       labels:
         name: istio-operator
+        {{- range $key, $val := .Values.podLabels }}
+        {{ $key }}: "{{ $val }}"
+        {{- end }}
+      annotations:
+        prometheus.io/port: "{{ .Values.operator.monitoring.port }}"
+        prometheus.io/scrape: "true"
+    {{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations | indent 8 }}
+    {{- end }}
     spec:
       serviceAccountName: istio-operator{{- if not (eq .Values.revision "") }}-{{ .Values.revision }}{{- end }}
     {{- if .Values.operator.priorityClassName }}
@@ -23,6 +33,8 @@ spec:
           command:
           - operator
           - server
+          - --monitoring-host={{ .Values.operator.monitoring.host }}
+          - --monitoring-port={{ .Values.operator.monitoring.port }}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -51,4 +63,16 @@ spec:
               value: {{.Values.waitForResourcesTimeout | quote}}
             - name: REVISION
               value: {{.Values.revision | quote}}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 ---

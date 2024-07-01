@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2021-2023 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2021-2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,7 @@
 kubectl:
   image:
     repository: artifactory.algol60.net/csm-docker/stable/docker-kubectl
-    tag: 1.19.15
+    tag: 1.24.17
 
 certificate:
   commonName: "*.vshasta.io"
@@ -232,7 +232,6 @@ deployments:
     serviceAnnotations:
       metallb.universe.tf/address-pool: hardware-management
       external-dns.alpha.kubernetes.io/hostname: shasta.local,auth.local
-    meshExpansionPorts: []
     secretVolumes:
     - name: ingressgateway-certs
       secretName: istio-ingressgateway-certs
@@ -533,6 +532,10 @@ servicesGateway:
     enabled: true
     hosts:
       - "*"
+
+# For Helm compatibility.
+ownerName: ""
+
 global:
   authGateway: services/services-gateway
   # Used to locate istio-pilot.
@@ -557,7 +560,7 @@ global:
   hub: artifactory.algol60.net/csm-docker/stable/istio
 
   # Default tag for Istio images.
-  tag: 1.11.8-cray1-distroless
+  tag: 1.19.10-cray1-distroless
 
   # Comma-separated minimum per-scope logging level of messages to output, in the form of <scope>:<level>,<scope>:<level>
   # The control plane has different scopes depending on component, but can configure default log level across all components
@@ -805,10 +808,7 @@ global:
   #   1 - Least preferred
   #   2 - No preference
   #   3 - Most preferred
-  arch:
-    amd64: 2
-    s390x: 2
-    ppc64le: 2
+  arch: {}
 
   # Whether to restrict the applications namespace the controller manages;
   # If not set, controller watches all namespaces
@@ -842,14 +842,6 @@ global:
   # podDNSSearchNamespaces:
   # - global
   # - "{{ valueOrDefault .DeploymentMeta.Namespace \"default\" }}.global"
-
-  # If set to true, the pilot and citadel mtls will be exposed on the
-  # ingress gateway
-  meshExpansion:
-    enabled: false
-    # If set to true, the pilot and citadel mtls and the plain text pilot ports
-    # will be exposed on an internal gateway
-    useILB: false
 
   multiCluster:
     # Set to true to connect two kubernetes clusters via their respective
@@ -890,13 +882,8 @@ global:
   # Use the Mesh Control Protocol (MCP) for configuring Mixer and Pilot. Requires an MCP source.
   useMCP: false
 
-  # The trust domain corresponds to the trust root of a system
-  # Refer to https://github.com/spiffe/spiffe/blob/master/standards/SPIFFE-ID.md#21-trust-domain
-  # Indicate the domain used in SPIFFE identity URL
-  # The default depends on the environment.
-  #   kubernetes: cluster.local
-  #   else:  default dns domain
-  trustDomain: "cluster.local"
+#  Deprecated, use meshConfig.trustDomain
+#  trustDomain: ""
 
   #  The trust domain aliases represent the aliases of trust_domain.
   #  For example, if we have
@@ -1081,6 +1068,11 @@ global:
 
   meshConfig:
     enablePrometheusMerge: false
+
+    # The trust domain corresponds to the trust root of a system
+    # Refer to https://github.com/spiffe/spiffe/blob/master/standards/SPIFFE-ID.md#21-trust-domain
+    trustDomain: "cluster.local"
+
     defaultConfig:
       proxyMetadata: {}
       tracing:

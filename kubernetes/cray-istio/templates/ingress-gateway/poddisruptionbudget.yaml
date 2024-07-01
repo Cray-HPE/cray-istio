@@ -1,7 +1,7 @@
 {{- if .Values.global.defaultPodDisruptionBudget.enabled }}
 {{- range $name, $options:= .Values.deployments }}
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ $name }}
@@ -9,6 +9,9 @@ metadata:
   labels:
 {{ .labels | toYaml | trim | indent 4 }}
     release: {{ $.Release.Name }}
+    istio.io/rev: {{ $.Values.revision | default "default" }}
+    install.operator.istio.io/owning-resource: {{ $.Values.ownerName | default "unknown" }}
+    operator.istio.io/component: "IngressGateways"
 spec:
   minAvailable: 1
   selector:

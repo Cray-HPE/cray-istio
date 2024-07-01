@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2022-2023 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2022-2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 apiVersion: v2
-version: 2.10.0
+version: 2.11.0
 name: cray-istio
 description: Cray Istio for cluster service mesh including service gateway/sidecars, monitoring etc.
 keywords:
@@ -32,6 +32,6 @@ sources:
   - https://github.com/Cray-HPE/cray-istio
 maintainers:
   - name: bo-quan
-appVersion: 1.11.8
+appVersion: 1.19.10
 annotations:
   artifacthub.io/license: MIT

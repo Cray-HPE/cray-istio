@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2022-2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -23,9 +23,9 @@
 #
 istio-operator:
   hub: artifactory.algol60.net/csm-docker/stable/istio
-  tag: 1.11.8-cray1-distroless  # Also update the annotation in Chart.yaml
+  tag: 1.19.10-cray1-distroless  # Also update the annotation in Chart.yaml
 
 kubectl:
   image:
     repository: artifactory.algol60.net/csm-docker/stable/docker-kubectl
-    tag: 1.19.15
+    tag: 1.24.17

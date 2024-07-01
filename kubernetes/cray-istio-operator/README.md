@@ -1,6 +1,6 @@
 
 This deploys the Istio operator. There are instructions here:
-https://istio.io/v1.11/docs/setup/install/operator/
+https://istio.io/v1.19/docs/setup/install/operator/
 
 The istio-operator chart in the charts/ directory was copied (and modified -- see
 details below) from the istio release which is available for download at

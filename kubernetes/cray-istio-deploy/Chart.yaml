@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2022-2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 apiVersion: v2
-version: 1.29.0
+version: 1.30.0
 name: cray-istio-deploy
 description: Creates the IstioOperator instance that deploys the Istio control plane.
 keywords:
@@ -32,15 +32,15 @@ sources:
   - https://github.com/Cray-HPE/cray-istio
 maintainers:
   - name: bo-quan
-appVersion: 1.11.8
+appVersion: 1.19.10
 annotations:
   artifacthub.io/license: MIT
   artifacthub.io/images: |
     - name: istio-pilot-distro
-      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.11.8-cray1-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.19.10-cray1-distroless
     - name: istio-pilot-distroless
-      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.11.8-cray1
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.19.10-cray1
     - name: istio-proxy-distro
-      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.11.8-cray1-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.19.10-cray1-distroless
     - name: istio-proxy-distroless
-      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.11.8-cray1
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.19.10-cray1

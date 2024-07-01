@@ -10,6 +10,9 @@ metadata:
   labels:
 {{ $options.labels | toYaml | indent 4 }}
     release: {{ $.Release.Name }}
+    istio.io/rev: {{ $.Values.revision | default "default" }}
+    install.operator.istio.io/owning-resource: {{ $.Values.ownerName | default "unknown" }}
+    operator.istio.io/component: "IngressGateways"
 spec:
 {{- if not $options.autoscaleEnabled }}
 {{- if $options.replicaCount }}
@@ -44,9 +47,13 @@ spec:
         {{- else}}
         service.istio.io/canonical-revision: latest
         {{- end }}
+        istio.io/rev: {{ $.Values.revision | default "default" }}
+        install.operator.istio.io/owning-resource: {{ $.Values.ownerName | default "unknown" }}
+        operator.istio.io/component: "IngressGateways"
       annotations:
+        istio.io/rev: {{ $.Values.revision | default "default" }}
         {{- if $.Values.global.meshConfig.enablePrometheusMerge }}
-        prometheus.io/port: "15090"
+        prometheus.io/port: "15020"
         prometheus.io/scrape: "true"
         prometheus.io/path: "/stats/prometheus"
         {{- end }}
@@ -101,11 +108,6 @@ spec:
           ports:
             {{- range $key, $val := $options.ports }}
             - containerPort: {{ $val.targetPort | default $val.port }}
-            {{- end }}
-            {{- if $.Values.global.meshExpansion.enabled }}
-            {{- range $key, $val := .meshExpansionPorts }}
-            - containerPort: {{ $val.targetPort | default $val.port }}
-            {{- end }}
             {{- end }}
             - containerPort: 15090
               protocol: TCP
@@ -196,6 +198,10 @@ spec:
               fieldRef:
                 apiVersion: v1
                 fieldPath: status.hostIP
+          - name: ISTIO_CPU_LIMIT
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.cpu
           - name: SERVICE_ACCOUNT
             valueFrom:
               fieldRef:
@@ -215,13 +221,17 @@ spec:
           {{- if $.Values.global.meshID }}
           - name: ISTIO_META_MESH_ID
             value: "{{ $.Values.global.meshID }}"
-          {{- else if $.Values.global.trustDomain }}
+          {{- else if $.Values.global.meshConfig.trustDomain }}
           - name: ISTIO_META_MESH_ID
-            value: "{{ $.Values.global.trustDomain }}"
+            value: "{{ $.Values.global.meshConfig.trustDomain }}"
+          {{- end }}
+          {{- if $.Values.global.meshConfig.trustDomain }}
+          - name: TRUST_DOMAIN
+            value: "{{ $.Values.global.meshConfig.trustDomain }}"
           {{- end }}
           {{- range $key, $val := $options.env }}
           - name: {{ $key }}
-            value: {{ $val }}
+            value: "{{ $val }}"
           {{- end }}
           {{- range $key, $value := $.Values.global.meshConfig.defaultConfig.proxyMetadata }}
           - name: {{ $key }}
@@ -230,7 +240,7 @@ spec:
           {{ $network_set := index $options.env "ISTIO_META_NETWORK" }}
           {{- if and (not $network_set) $.Values.global.network }}
           - name: ISTIO_META_NETWORK
-            value: {{ $.Values.global.network }}
+            value: "{{ $.Values.global.network }}"
           {{- end }}
 {{- if $options.podAnnotations }}
           - name: "ISTIO_METAJSON_ANNOTATIONS"
@@ -239,7 +249,17 @@ spec:
 {{ end }}
           - name: ISTIO_META_CLUSTER_ID
             value: "{{ $.Values.global.multiCluster.clusterName | default `Kubernetes` }}"
+          - name: ISTIO_META_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
           volumeMounts:
+          - name: workload-socket
+            mountPath: /var/run/secrets/workload-spiffe-uds
+          - name: credential-socket
+            mountPath: /var/run/secrets/credential-uds
+          - name: workload-certs
+            mountPath: /var/run/secrets/workload-spiffe-credentials
           - name: istio-envoy
             mountPath: /etc/istio/proxy
           - name: config-volume
@@ -285,6 +305,12 @@ spec:
 {{ toYaml $options.additionalContainers | indent 8 }}
 {{- end }}
       volumes:
+      - emptyDir: {}
+        name: workload-socket
+      - emptyDir: {}
+        name: credential-socket
+      - emptyDir: {}
+        name: workload-certs
 {{- if eq $.Values.global.pilotCertProvider "istiod" }}
       - name: istiod-ca-cert
         configMap:
