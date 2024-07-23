@@ -1120,3 +1120,6 @@ istio:
     env:
       USE_ISTIO_JWT_FILTER: "true"
       PILOT_ENABLE_UNSAFE_REGEX: "true"
+
+# Previous version of Istio from the current Upgrade (for tracking old image of istio)
+istio_prev_version: 1.11.8
