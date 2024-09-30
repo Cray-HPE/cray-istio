@@ -42,6 +42,9 @@ meshConfig:
   accessLogFile: /dev/stdout
   defaultConfig:
     holdApplicationUntilProxyStarts: true
+    tracing:
+      zipkin:
+        address: zipkin.istio-system.svc.cluster.local:9411
 
 istio:
 
