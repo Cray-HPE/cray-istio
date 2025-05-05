@@ -21,5 +21,22 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-add_exclude:
-  - "kubernetes/cray-istio/templates/ingress-gateway"
+apiVersion: kuttl.dev/v1beta1
+kind: TestSuite
+commands:
+- command: helm repo add cray-csm https://arti.dev.cray.com/artifactory/csm-helm-stable-local/
+  ignoreFailure: true
+- command: kubectl create ns ceph-rgw
+- command: kubectl create ns cert-manager-init
+- command: kubectl create ns istio-system
+- command: kubectl create ns services
+- command: kubectl create ns sma
+- command: kubectl create ns spire
+- command: helm install --wait -f ./tests/kuttl/cray-certmanager-init.yaml --namespace cert-manager-init cray-certmanager-init cray-csm/cray-certmanager-init
+- command: helm install --wait -f ./tests/kuttl/cray-certmanager.yaml --namespace cert-manager cray-certmanager cray-csm/cray-certmanager
+- command: helm install --wait -f ./tests/kuttl/cray-certmanager-issuers.yaml --namespace cert-manager cray-certmanager-issuers cray-csm/cray-certmanager-issuers
+- command: helm install -f ./tests/kuttl/values.yaml --namespace istio-system cray-istio-ingress .
+testDirs:
+- ./tests/kuttl
+startKIND: true
+kindNodeCache: true

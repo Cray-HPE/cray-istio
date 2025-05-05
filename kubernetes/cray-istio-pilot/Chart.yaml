@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2022-2025 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2025 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -21,5 +21,32 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-add_exclude:
-  - "kubernetes/cray-istio/templates/ingress-gateway"
+apiVersion: v2
+version: 1.0.0
+name: cray-istio-pilot
+description: Helm chart for deploying Istio control plane (istiod)
+keywords:
+  - istio
+  - pilot
+  - istiod
+home: https://github.com/Cray-HPE/cray-istio
+sources:
+  - https://github.com/Cray-HPE/cray-istio
+dependencies:
+  - name: istiod
+    version: 1.25.2
+    repository: https://istio-release.storage.googleapis.com/charts
+maintainers:
+  - name: arka-pramanik-hpe
+appVersion: 1.25.2
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/images: |
+    - name: istio-pilot-distro
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.25.2-cray1-distroless
+    - name: istio-pilot-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.25.2-cray1
+    - name: istio-proxy-distro
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.25.2-cray1-distroless
+    - name: istio-proxy-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.25.2-cray1

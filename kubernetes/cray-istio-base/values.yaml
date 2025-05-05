@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2022-2025 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2025 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -21,5 +21,12 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-add_exclude:
-  - "kubernetes/cray-istio/templates/ingress-gateway"
+base:
+  global:
+    hub: artifactory.algol60.net/csm-docker/stable/istio
+    tag: 1.25.2-cray1-distroless
+    imagePullPolicy: IfNotPresent
+    istioNamespace: istio-system
+    priorityClassName: csm-high-priority-service
+    configValidation: true
+  defaultRevision: ""
