@@ -30,8 +30,6 @@ istiod:
     priorityClassName: csm-high-priority-service
     configValidation: true
     defaultRevision: ""
-  
-  profile: minimal
 
   meshConfig:
     accessLogFile: /dev/stdout
