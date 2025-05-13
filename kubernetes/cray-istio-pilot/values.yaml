@@ -23,21 +23,20 @@
 #
 istiod:
   global:
+    configValidation: true
     hub: artifactory.algol60.net/csm-docker/stable/istio
-    tag: 1.25.2-cray1-distroless
     imagePullPolicy: IfNotPresent
     istioNamespace: istio-system
     priorityClassName: csm-high-priority-service
-    configValidation: true
-    defaultRevision: ""
+    tag: 1.25.2-cray1-distroless
 
   meshConfig:
     accessLogFile: /dev/stdout
     defaultConfig:
       holdApplicationUntilProxyStarts: true
-    tracing:
-      zipkin:
-        address: zipkin.istio-system.svc.cluster.local:9411
+      tracing:
+        zipkin:
+          address: zipkin.istio-system.svc.cluster.local:9411
 
   image: pilot
   hub: artifactory.algol60.net/csm-docker/stable/istio
@@ -47,3 +46,12 @@ istiod:
     enabled: false
   ztunnel:
     resourceName: ztunnel
+  
+  replicaCount: 3
+  autoscaleMin: 3
+  autoscaleMax: 8
+  env:
+    ENABLE_LEGACY_FSGROUP_INJECTION: false
+    JWT_POLICY: third-party-jwt
+    USE_ISTIO_JWT_FILTER: "true"
+    PILOT_ENABLE_UNSAFE_REGEX: "true"
