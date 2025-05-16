@@ -41,12 +41,12 @@ istiod:
   image: pilot
   hub: artifactory.algol60.net/csm-docker/stable/istio
   tag: 1.25.2-cray1-distroless
-  
+
   cni:
     enabled: false
   ztunnel:
     resourceName: ztunnel
-  
+
   replicaCount: 3
   autoscaleMin: 3
   autoscaleMax: 8

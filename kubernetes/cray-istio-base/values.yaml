@@ -29,4 +29,3 @@ base:
     istioNamespace: istio-system
     priorityClassName: csm-high-priority-service
     configValidation: true
-  defaultRevision: ""
