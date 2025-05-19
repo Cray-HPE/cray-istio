@@ -562,7 +562,7 @@ global:
   hub: artifactory.algol60.net/csm-docker/stable/istio
 
   # Default tag for Istio images.
-  tag: 1.25.2-cray1-distroless
+  tag: 1.26.0-cray1-distroless
 
   # Comma-separated minimum per-scope logging level of messages to output, in the form of <scope>:<level>,<scope>:<level>
   # The control plane has different scopes depending on component, but can configure default log level across all components

@@ -28,7 +28,7 @@ istiod:
     imagePullPolicy: IfNotPresent
     istioNamespace: istio-system
     priorityClassName: csm-high-priority-service
-    tag: 1.25.2-cray1-distroless
+    tag: 1.26.0-cray1-distroless
 
   meshConfig:
     accessLogFile: /dev/stdout
@@ -40,7 +40,7 @@ istiod:
 
   image: pilot
   hub: artifactory.algol60.net/csm-docker/stable/istio
-  tag: 1.25.2-cray1-distroless
+  tag: 1.26.0-cray1-distroless
 
   cni:
     enabled: false

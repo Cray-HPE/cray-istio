@@ -34,19 +34,19 @@ sources:
   - https://github.com/Cray-HPE/cray-istio
 dependencies:
   - name: istiod
-    version: 1.25.2
+    version: 1.26.0
     repository: https://istio-release.storage.googleapis.com/charts
 maintainers:
   - name: arka-pramanik-hpe
-appVersion: 1.25.2
+appVersion: 1.26.0
 annotations:
   artifacthub.io/license: MIT
   artifacthub.io/images: |
     - name: istio-pilot-distro
-      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.25.2-cray1-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.26.0-cray1-distroless
     - name: istio-pilot-distroless
-      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.25.2-cray1
+      image: artifactory.algol60.net/csm-docker/stable/istio/pilot:1.26.0-cray1
     - name: istio-proxy-distro
-      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.25.2-cray1-distroless
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.26.0-cray1-distroless
     - name: istio-proxy-distroless
-      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.25.2-cray1
+      image: artifactory.algol60.net/csm-docker/stable/istio/proxyv2:1.26.0-cray1

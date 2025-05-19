@@ -33,10 +33,10 @@ sources:
   - https://github.com/Cray-HPE/cray-istio
 dependencies:
   - name: base
-    version: 1.25.2
+    version: 1.26.0
     repository: https://istio-release.storage.googleapis.com/charts
 maintainers:
   - name: arka-pramanik-hpe
-appVersion: 1.25.2
+appVersion: 1.26.0
 annotations:
   artifacthub.io/license: MIT

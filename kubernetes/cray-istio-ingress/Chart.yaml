@@ -33,6 +33,6 @@ sources:
 maintainers:
   - name: arka-pramanik-hpe
   - name: bo-quan
-appVersion: 1.25.2
+appVersion: 1.26.0
 annotations:
   artifacthub.io/license: MIT
