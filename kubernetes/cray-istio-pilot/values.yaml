@@ -47,11 +47,15 @@ istiod:
   ztunnel:
     resourceName: ztunnel
 
+  rollingMaxSurge: 100%
+  rollingMaxUnavailable: 1
   replicaCount: 3
   autoscaleMin: 3
   autoscaleMax: 8
+
+  sidecarInjectorWebhook:
+    rewriteAppHTTPProbe: true
+  
   env:
     ENABLE_LEGACY_FSGROUP_INJECTION: false
     JWT_POLICY: third-party-jwt
-    USE_ISTIO_JWT_FILTER: "true"
-    PILOT_ENABLE_UNSAFE_REGEX: "true"
