@@ -1,10 +1,10 @@
-# cray-istio Upgrade Notes
- 
+# Cray-Istio Upgrade Notes
+
 ## Description
 Cray-Istio is a customized version of the Istio service mesh tailored for HPE's Cray supercomputers and high-performance computing (HPC) workloads. It optimizes Istio's performance to minimize overhead and maximize speed for demanding HPC tasks. Cray-Istio integrates seamlessly with HPE's HPC ecosystem, allowing coordinated management with schedulers and resource managers. It might also include additional security features relevant to HPC environments. This runs after cray-istio-base which creates the Istio CRDs that
 are used by this chart (Gateways, VirtualServices, etc.).<br>
 Understanding Cray-Istio builds upon the foundation of Istio, an open-source service mesh. Istio provides features like traffic management, security, and observability for microservices, making it valuable for managing complex HPC deployments.
- 
+
 ## Pre-requisites
 - As part of upgrading to a new version, make sure the latest version images are added to artifactory.
 - Helm does not support upgrading CRDs during chart upgrade. They need to be upgraded explicitly which is handled as part of the templates.

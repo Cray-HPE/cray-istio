@@ -55,7 +55,7 @@ istiod:
 
   sidecarInjectorWebhook:
     rewriteAppHTTPProbe: true
-  
+
   env:
     ENABLE_LEGACY_FSGROUP_INJECTION: false
     JWT_POLICY: third-party-jwt

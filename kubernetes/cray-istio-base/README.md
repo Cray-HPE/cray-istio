@@ -2,11 +2,11 @@
 
 This chart deploys the Istio base components including CRDs for the Cray system.
 
-The base chart is a prerequisite for both the cray-istio-pilot and cray-istio charts.
+The base chart is a prerequisite for both the cray-istio-pilot and cray-istio-ingress charts.
 This chart should be installed first in the Istio deployment sequence.
 
 There are instructions for Istio base components here:
-https://istio.io/v1.25/docs/setup/install/helm/
+https://istio.io/v1.26/docs/setup/install/helm/
 
 The base chart is pulled as a dependency from the Istio release which is available at
 https://istio-release.storage.googleapis.com/charts
