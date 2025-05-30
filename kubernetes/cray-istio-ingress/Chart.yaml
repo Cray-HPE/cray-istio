@@ -21,5 +21,18 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-add_exclude:
-  - "kubernetes/cray-istio/templates/ingress-gateway"
+apiVersion: v2
+version: 4.0.0
+name: cray-istio-ingress
+description: Cray Istio for cluster service mesh including service gateway/sidecars, monitoring etc.
+keywords:
+  - istio
+home: https://github.com/Cray-HPE/cray-istio
+sources:
+  - https://github.com/Cray-HPE/cray-istio
+maintainers:
+  - name: arka-pramanik-hpe
+  - name: bo-quan
+appVersion: 1.26.0
+annotations:
+  artifacthub.io/license: MIT

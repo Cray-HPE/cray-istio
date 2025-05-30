@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2019-2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2019-2025 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -42,9 +42,9 @@
 # (MIT License)
 
 CHART_PATH ?= kubernetes
-CHART_NAME_1 ?= cray-istio
-CHART_NAME_2 ?= cray-istio-deploy
-CHART_NAME_2 ?= cray-istio-operator
+CHART_NAME_1 ?= cray-istio-ingress
+CHART_NAME_2 ?= cray-istio-base
+CHART_NAME_2 ?= cray-istio-pilot
 CHART_VERSION_1 ?= local
 CHART_VERSION_2 ?= local
 CHART_VERSION_3 ?= local
